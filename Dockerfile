@@ -1,19 +1,14 @@
 FROM node:18-alpine
 
-RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
+WORKDIR /usr/src/app
 
-WORKDIR /home/node/app
+RUN npm cache clean --force
+RUN rm -rf node_modules
 
-RUN chown -R 1000:1000 /usr/local/lib/node_modules/
-RUN chown -R 1000:1000 /usr/local/bin/
-RUN chown -R 1000:1000 /usr/local/share/
-
-COPY ./ ./
-
-USER node
+COPY package.json .
 
 RUN npm install
 
-COPY --chown=node:node . .
+COPY . .
 
-CMD [ "npm", "start" ]
+CMD npm start

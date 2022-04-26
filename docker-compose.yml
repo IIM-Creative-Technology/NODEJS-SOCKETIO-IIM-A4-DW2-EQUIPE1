@@ -1,22 +1,6 @@
 version: "3.8"
 
 services:
-  node_backend:
-    container_name: node_backend
-    restart: always
-    user: "${UID}:${GID}"
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    ports:
-      - "3001:3000"
-    environment:
-      - PGUSER=${PGUSER}
-      - PGPASSWORD=${PGPASSWORD}
-      - PGDATABASE=${PGDATABASE}
-      - PGHOST=${PGHOST} # NAME OF THE SERVICE
-    depends_on:
-      - db
   db:
     container_name: db
     image: "postgres:12"
@@ -37,5 +21,22 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
       - "5050:80"
+  node_backend:
+    container_name: node_backend
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
+      - PGDATABASE=${PGDATABASE}
+      - PGHOST=${PGHOST} # NAME OF THE SERVICE
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
 volumes:
   pgdata1: {}
