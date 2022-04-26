@@ -4,3 +4,5 @@ const sequelize = new Sequelize(process.env.PGDATABASE, process.env.PGUSER, proc
     host: process.env.PGHOST,
     dialect: 'postgres'
 });
+
+module.exports = {sequelize};
