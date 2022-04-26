@@ -26,6 +26,6 @@ const server = app.listen(port, async () => {
     console.log(`Example app listening on port ${port}`);
   } catch (error) {
     console.error("Unable to connect to the database:", error);
-    // server.close();
+    server.close();
   }
 });
