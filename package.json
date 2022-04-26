@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.3",
+    "pg": "^8.7.3",
     "sequelize": "^6.19.0"
   },
   "devDependencies": {
