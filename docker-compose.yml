@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  node_backend:
+    container_name: node_backend
+    restart: always
+    user: "${UID}:${GID}"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
+      - PGDATABASE=${PGDATABASE}
+      - PGHOST=${PGHOST} # NAME OF THE SERVICE
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: "postgres:12"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+      - POSTGRES_DB=${PGDATABASE}
+    volumes:
+      - pgdata1:/var/lib/postgresql/data
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
+volumes:
+  pgdata1: {}
