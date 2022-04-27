@@ -22,13 +22,6 @@
         }
       }
     },
-    "/docs/swagger": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
     "/api/users/": {
       "post": {
         "tags": [
