@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/api/ping", (req, res) => {
+router.get("/", (req, res) => {
   res.send("API is up and running!");
 });
 
