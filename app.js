@@ -16,8 +16,11 @@ app.get("/api/ping", (req, res) => {
   res.send("API is up and running!");
 });
 app.get("/", (req, res)=>{
-res.sendFile(__dirname + '/template/index.html')
-})
+  res.sendFile(__dirname + '/template/index.html')
+});
+app.get("/chat", (req, res) => {
+  res.sendFile(__dirname + "/template/chat/chat.html")
+});
 docRouter.use("/swagger", swaggerUi.serve);
 docRouter.get("/swagger", swaggerUi.setup(swaggerDocument));
 
