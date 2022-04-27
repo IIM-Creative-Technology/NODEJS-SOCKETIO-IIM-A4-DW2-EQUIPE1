@@ -6,8 +6,10 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./docs/swagger.json");
 const userRouter = require("./src/routes/users");
 const docRouter = express.Router();
+const cookieParser = require("cookie-parser");
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/api/ping", (req, res) => {
   res.send("API is up and running!");
