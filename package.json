@@ -16,6 +16,7 @@
     "nodemon": "^2.0.15"
   },
   "scripts": {
+    "test": "echo SuperTest",
     "start": "node app.js",
     "dev": "nodemon --ignore 'docs/swagger.json' app.js",
     "swagger-autogen": "node docs/swagger.js"
@@ -29,10 +30,5 @@
   "bugs": {
     "url": "https://github.com/IIM-Creative-Technology/NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1/issues"
   },
-  "homepage": "https://github.com/IIM-Creative-Technology/NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1#readme",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  }
+  "homepage": "https://github.com/IIM-Creative-Technology/NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1#readme"
 }
