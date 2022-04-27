@@ -1,8 +1,7 @@
-require("dotenv").config();
 const express = require("express");
 const db = require("./src/config/db");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./docs/swagger.json");
 const userRouter = require("./src/routes/users");
@@ -24,7 +23,7 @@ const server = app.listen(port, async () => {
   try {
     await db.sequelize.authenticate();
     console.log("Connection has been established successfully.");
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Example app listening on port : http://127.0.0.1:${port}`);
   } catch (error) {
     console.error("Unable to connect to the database:", error);
     server.close();
