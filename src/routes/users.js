@@ -1,27 +1,17 @@
-const router = require("express").Router();
-
-router.post("/", (req, res) => {
-  // #swagger.summary = 'Create a new user';
-  // #swagger.tags = ['Users']
-  res.send("CREATE user");
-});
-
-router.get("/:id", (req, res) => {
-  // #swagger.summary = 'Get user by id'
-  // #swagger.tags = ['Users']
-  res.send(req.params);
-});
-
-router.get("/", (req, res) => {
-  // #swagger.summary = 'Get all users'
-  // #swagger.tags = ['Users']
-  res.send("get users");
-});
-
-router.delete("/:id", (req, res) => {
-  // #swagger.summary = 'Delete user by id'
-  // #swagger.tags = ['Users']
-  res.send("DELETE USER");
-});
+const express = require("express");
+const router = express.Router();
+const {
+  getUsers,
+  postUser,
+  updateUser,
+  deleteUser,
+} = require("../controllers/userController");
+/**
+ * User Routes
+ */
+router.get("/", getUsers);
+router.post("/", postUser);
+router.put("/:id/update", updateUser);
+router.delete("/:id/delete", deleteUser);
 
 module.exports = router;
