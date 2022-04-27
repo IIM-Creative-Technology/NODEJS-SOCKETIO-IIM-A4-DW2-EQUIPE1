@@ -7,7 +7,14 @@ const sequelize = new Sequelize(process.env.PGDATABASE, process.env.PGUSER, proc
         require: true,
         rejectUnauthorized: false
     }
-
 });
 
-module.exports = { sequelize };
+const migrate = async () => {
+    try {
+        await sequelize.sync();
+    } catch (error) {
+        console.log(`DB migration : ${error}`)
+    }
+}
+
+module.exports = { sequelize, migrate };
