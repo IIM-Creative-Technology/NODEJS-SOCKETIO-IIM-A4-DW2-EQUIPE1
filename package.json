@@ -14,10 +14,11 @@
     "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
+    "jest": "^28.0.2",
     "nodemon": "^2.0.15"
   },
   "scripts": {
-    "test": "echo SuperTest",
+    "test": "jest",
     "start": "node app.js",
     "dev": "nodemon --ignore 'docs/swagger.json' app.js",
     "swagger-autogen": "node docs/swagger.js"
