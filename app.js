@@ -5,6 +5,7 @@ const port = 3000;
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./docs/swagger.json");
 const userRouter = require("./src/routes/users");
+const pingRouter = require("./src/routes/ping")
 const docRouter = express.Router();
 const cookieParser = require("cookie-parser");
 const socket = require('socket.io');
@@ -12,18 +13,20 @@ const socket = require('socket.io');
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/api/ping", (req, res) => {
-  res.send("API is up and running!");
-});
+// Index
 app.get("/", (req, res)=>{
   res.sendFile(__dirname + '/template/index.html')
 });
+// Chat page
 app.get("/chat", (req, res) => {
   res.sendFile(__dirname + "/template/chat/chat.html")
 });
+
+//Swagger
 docRouter.use("/swagger", swaggerUi.serve);
 docRouter.get("/swagger", swaggerUi.setup(swaggerDocument));
-
+//Api
+app.use("/api/ping", pingRouter);
 app.use("/api/users", userRouter);
 app.use("/docs", docRouter);
 
