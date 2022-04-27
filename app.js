@@ -7,6 +7,7 @@ const swaggerDocument = require("./docs/swagger.json");
 const userRouter = require("./src/routes/users");
 const docRouter = express.Router();
 const cookieParser = require("cookie-parser");
+const socket = require('socket.io');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -33,3 +34,10 @@ const server = app.listen(port, async () => {
     server.close();
   }
 });
+
+const io = socket(server);
+
+io.on("connection", function (socket) {
+  console.log("Made socket connection");
+});
+
