@@ -14,7 +14,9 @@ app.use(cookieParser());
 app.get("/api/ping", (req, res) => {
   res.send("API is up and running!");
 });
-
+app.get("/", (req, res)=>{
+res.sendFile(__dirname + '/template/index.html')
+})
 docRouter.use("/swagger", swaggerUi.serve);
 docRouter.get("/swagger", swaggerUi.setup(swaggerDocument));
 
