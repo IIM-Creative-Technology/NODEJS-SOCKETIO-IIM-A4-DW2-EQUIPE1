@@ -32,5 +32,8 @@
   "bugs": {
     "url": "https://github.com/IIM-Creative-Technology/NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1/issues"
   },
-  "homepage": "https://github.com/IIM-Creative-Technology/NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1#readme"
+  "homepage": "https://github.com/IIM-Creative-Technology/NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1#readme",
+  "jest": {
+    "testPathIgnorePatterns": ["./src/test/db"]
+  }
 }
