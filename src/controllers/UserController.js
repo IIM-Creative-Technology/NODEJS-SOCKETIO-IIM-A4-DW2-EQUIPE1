@@ -61,6 +61,15 @@ exports.updateUser = function (req, res) {
  * @param req
  * @param res
  */
-exports.deleteUser = function (req, res) {
-    res.send("delete user!");
+exports.deleteUser = async function (req, res) {
+    try {
+        await userModel.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(204);
+    } catch (e) {
+        res.status(500);
+    }
 };
