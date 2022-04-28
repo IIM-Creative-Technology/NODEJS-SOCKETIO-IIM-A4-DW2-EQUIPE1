@@ -36,10 +36,13 @@ app.use("/api/users", userRouter);
 app.use("/docs", docRouter);
 
 io.on('connection', (socket) => {
-  socket.on('login', (userInfo) => {
-    userList.push(userInfo);
-    io.emit('userList', userList);
-  })
+  socket.on('chat message', (message) => {
+    io.emit('chat message', message);
+  });
+  // socket.on('login', (userInfo) => {
+  //   userList.push(userInfo);
+  //   io.emit('userList', userList);
+  // })
   // Exit (built-in event)
   socket.on('disconnect', () => {
     userList = userList.filter(item => item.id != socket.id)
@@ -59,9 +62,4 @@ http.listen(port, async () => {
   }
 });
 
-const io = socket(server);
-
-io.on("connection", function (socket) {
-  console.log("Made socket connection");
-});
 
