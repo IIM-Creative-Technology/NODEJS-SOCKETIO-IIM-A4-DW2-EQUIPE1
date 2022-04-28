@@ -28,7 +28,7 @@ app.get("/api/ping", (req, res) => {
   res.send("API is up and running!");
 });
 // Index
-app.get("/", (req, res)=>{
+app.get("/", new auth().authentication, (req, res)=>{
   res.sendFile(__dirname + '/template/index.html')
 });
 // Chat page
