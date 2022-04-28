@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
  * @param res
  */
 exports.getAllUsers = async function (req, res) {
-    const userList = await userModel.findAll();
+    const userList = await userModel.findAll({attributes: {exclude: ["password"]}});
     res.json(userList);
 }
 /**
