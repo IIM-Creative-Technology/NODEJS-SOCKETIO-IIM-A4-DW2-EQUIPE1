@@ -3,7 +3,7 @@ const AuthenticationService = require("../services/authentication/authentication
 const authService = new AuthenticationService();
 
 class AuthenticationMiddleware{
-    authentication = (req, res, next) => {
+    authentication = async (req, res, next) => {
         try {
             const token = req.cookies.token;
             if (!token) return res.redirect('/api/users/login');
@@ -12,8 +12,7 @@ class AuthenticationMiddleware{
             req.user = decoded;
             return next();
         } catch (error) {
-            authService.refreshJwtToken();
-            //res.status(400).send("Invalid token");
+            await authService.refreshJwtToken();
         }
     };
 }
