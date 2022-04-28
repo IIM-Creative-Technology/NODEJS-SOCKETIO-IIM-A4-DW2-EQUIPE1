@@ -44,7 +44,6 @@ exports.loginUser = async function (req, res) {
             }
         } else { res.status(403); }
     } catch (e) {
-        console.log(e);
         res.status(500).send(e);
     }
 };
