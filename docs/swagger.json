@@ -64,6 +64,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "email": {
+                  "example": "any"
+                },
                 "password": {
                   "example": "any"
                 }
