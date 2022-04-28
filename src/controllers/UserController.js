@@ -3,7 +3,15 @@ const jwtToken = require("../services/authentication/authenticationToken");
 const bcrypt = require('bcryptjs');
 // User Controller
 /**
- * Get all Users
+ * Get all users
+ * @param req
+ * @param res
+ */
+exports.getAllUsers = function (req, res) {
+    res.json(req.user);
+}
+/**
+ * Get current User
  * @param req
  * @param res
  */
