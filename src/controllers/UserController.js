@@ -7,8 +7,9 @@ const bcrypt = require('bcryptjs');
  * @param req
  * @param res
  */
-exports.getAllUsers = function (req, res) {
-    res.json(req.user);
+exports.getAllUsers = async function (req, res) {
+    const userList = await userModel.findAll();
+    res.json(userList);
 }
 /**
  * Get current User
