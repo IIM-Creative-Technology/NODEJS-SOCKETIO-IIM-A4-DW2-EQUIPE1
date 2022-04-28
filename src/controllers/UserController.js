@@ -3,7 +3,16 @@ const jwtToken = require("../services/authentication/authenticationToken");
 const bcrypt = require('bcryptjs');
 // User Controller
 /**
- * Get all Users
+ * Get all users
+ * @param req
+ * @param res
+ */
+exports.getAllUsers = async function (req, res) {
+    const userList = await userModel.findAll({attributes: {exclude: ["password"]}});
+    res.json(userList);
+}
+/**
+ * Get current User
  * @param req
  * @param res
  */
