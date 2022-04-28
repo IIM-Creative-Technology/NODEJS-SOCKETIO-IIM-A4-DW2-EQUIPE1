@@ -1,0 +1,43 @@
+{
+  "name": "nodejs-socketio-iim-a4-dw2-equipe1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "heroku": "^7.60.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3",
+    "sequelize": "^6.19.0",
+    "swagger-autogen": "^2.21.1",
+    "swagger-ui-express": "^4.3.0"
+  },
+  "devDependencies": {
+    "jest": "^28.0.2",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node app.js",
+    "dev": "nodemon --ignore 'docs/swagger.json' app.js",
+    "swagger-autogen": "node docs/swagger.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IIM-Creative-Technology/NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IIM-Creative-Technology/NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1/issues"
+  },
+  "homepage": "https://github.com/IIM-Creative-Technology/NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1#readme",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "./src/test/db"
+    ]
+  }
+}
