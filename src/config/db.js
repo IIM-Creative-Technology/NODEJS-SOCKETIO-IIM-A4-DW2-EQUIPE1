@@ -1,7 +1,9 @@
 const { Sequelize } = require('sequelize');
 
+let sequelize;
+
 if (process.env.NODE_ENV === 'DEV') {
-    const sequelize = new Sequelize(process.env.PGDATABASE, process.env.PGUSER, process.env.PGPASSWORD, {
+    sequelize = new Sequelize(process.env.PGDATABASE, process.env.PGUSER, process.env.PGPASSWORD, {
         host: process.env.PGHOST,
         dialect: 'postgres',
         ssl: {
@@ -10,7 +12,7 @@ if (process.env.NODE_ENV === 'DEV') {
         }
     });
 } else {
-    const sequelize = new Sequelize(process.env.DATABASE_URL, {
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
         dialect: 'postgres',
         ssl: {
             require: true,
