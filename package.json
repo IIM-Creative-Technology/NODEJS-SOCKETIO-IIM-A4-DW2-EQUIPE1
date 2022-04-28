@@ -2,8 +2,9 @@
   "name": "nodejs-socketio-iim-a4-dw2-equipe1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.17.3",
@@ -36,6 +37,8 @@
   },
   "homepage": "https://github.com/IIM-Creative-Technology/NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1#readme",
   "jest": {
-    "testPathIgnorePatterns": ["./src/test/db"]
+    "testPathIgnorePatterns": [
+      "./src/test/db"
+    ]
   }
 }

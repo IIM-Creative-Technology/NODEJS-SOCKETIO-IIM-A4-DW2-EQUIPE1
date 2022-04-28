@@ -3,14 +3,14 @@ const AuthenticationService = require("../services/authentication/authentication
 const authService = new AuthenticationService();
 
 class AuthenticationMiddleware{
-    authentication (req, res, next) {
+    authentication = (req, res, next) => {
         try {
-            const token = req.header("x-auth-token");
-            if (!token) return res.status(403).send("Access denied.");
+            const token = req.cookies.token;
+            if (!token) return res.redirect('/api/users/login');
     
             const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
             req.user = decoded;
-            next();
+            return next();
         } catch (error) {
             authService.refreshJwtToken();
             //res.status(400).send("Invalid token");

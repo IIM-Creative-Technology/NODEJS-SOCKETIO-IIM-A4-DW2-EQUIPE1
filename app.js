@@ -13,11 +13,20 @@ const cors = require('cors');
 const http = require('http').Server(app);
 const io = require("socket.io")(http);
 let userList = [];
+const userModel = require('./src/data/userModel');
+const path = require('path');
+var bodyParser = require('body-parser');
+const auth  = require('./src/middleware/authentication');
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded())
 
+app.get("/api/ping", (req, res) => {
+  res.send("API is up and running!");
+});
 // Index
 app.get("/", (req, res)=>{
   res.sendFile(__dirname + '/template/index.html')
@@ -26,12 +35,10 @@ app.get("/", (req, res)=>{
 app.get("/chat", (req, res) => {
   res.sendFile(__dirname + "/template/chat/chat.html")
 });
-
-//Swagger
 docRouter.use("/swagger", swaggerUi.serve);
 docRouter.get("/swagger", swaggerUi.setup(swaggerDocument));
 //Api
-app.use("/api/ping", pingRouter);
+
 app.use("/api/users", userRouter);
 app.use("/docs", docRouter);
 
@@ -61,5 +68,4 @@ http.listen(port, async () => {
     server.close();
   }
 });
-
 
