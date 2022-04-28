@@ -54,8 +54,8 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits:{fileSize: 1000000},
-  fileFilter: function(req, file, cb){
-    checkFileType(file, cb);
+  fileFilter: async function(req, file, cb){
+    await checkFileType(file, cb);
   }
 }).single('myFile');
 
@@ -65,16 +65,17 @@ function checkFileType(file, cb){
   const mimetype = filetypes.test(file.mimetype);
 
   if(mimetype && extname){
-    return cb(null,true);
+    return cb(null, true);
   } else {
-    cb('Error: Images Only!');
+    return cb('Error: Images Only!', false);
   }
 }
 
 app.use(express.static('./public'));
 
-app.post('/upload', (req, res) => {
-  upload(req, res)
+app.post('/upload', async (req, res) => {
+  await upload(req, res);
+  res.send(200);
 });
 
 io.on('connection', (socket) => {

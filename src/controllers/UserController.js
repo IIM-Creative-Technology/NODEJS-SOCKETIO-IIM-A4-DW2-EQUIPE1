@@ -16,7 +16,6 @@ exports.getMe = function (req, res) {
  * @param res
  */
 exports.registerUser = async function (req, res) {
-    console.log(req.body);
     try {
         req.body.password = bcrypt.hashSync(req.body.password, 10);
         const user = await userModel.create(req.body);
@@ -32,7 +31,6 @@ exports.registerUser = async function (req, res) {
  * @param res
  */
 exports.loginUser = async function (req, res) {
-    console.log(req.body);
     try {
         const user = await userModel.findOne({ where: { email: req.body.email } });
         if (user != null) {
