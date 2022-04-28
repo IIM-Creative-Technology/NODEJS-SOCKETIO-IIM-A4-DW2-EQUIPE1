@@ -8,7 +8,7 @@ const {
   loginUser,
   updateUser,
   deleteUser,
-} = require("../controllers/userController");
+} = require("../controllers/UserController");
 /**
  * User Routes
  */
