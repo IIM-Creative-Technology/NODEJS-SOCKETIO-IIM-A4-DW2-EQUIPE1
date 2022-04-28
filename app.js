@@ -8,13 +8,14 @@ const userRouter = require("./src/routes/users");
 const pingRouter = require("./src/routes/ping")
 const docRouter = express.Router();
 const cookieParser = require("cookie-parser");
+const multer = require('multer');
+const path = require('path');
 const socket = require('socket.io');
 const cors = require('cors');
 const http = require('http').Server(app);
 const io = require("socket.io")(http);
 let userList = [];
 const userModel = require('./src/data/userModel');
-const path = require('path');
 var bodyParser = require('body-parser');
 const auth  = require('./src/middleware/authentication');
 
@@ -41,6 +42,40 @@ docRouter.get("/swagger", swaggerUi.setup(swaggerDocument));
 
 app.use("/api/users", userRouter);
 app.use("/docs", docRouter);
+
+
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function(req, file, cb){
+    cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits:{fileSize: 1000000},
+  fileFilter: function(req, file, cb){
+    checkFileType(file, cb);
+  }
+}).single('myFile');
+
+function checkFileType(file, cb){
+  const filetypes = /jpeg|jpg|png|gif/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+    return cb(null,true);
+  } else {
+    cb('Error: Images Only!');
+  }
+}
+
+app.use(express.static('./public'));
+
+app.post('/upload', (req, res) => {
+  upload(req, res)
+});
 
 io.on('connection', (socket) => {
   socket.on('chat message', (message) => {
