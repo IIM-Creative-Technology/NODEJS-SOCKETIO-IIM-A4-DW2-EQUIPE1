@@ -14,6 +14,9 @@ const {
  */
 router.get("/me", new auth().authentication, getMe);
 router.post("/register", registerUser);
+router.get('/register', (req, res) => {
+  res.sendFile(path.resolve('template/register.html'))
+});
 router.post("/login", loginUser);
 router.get('/login', (req, res) => {
   res.sendFile(path.resolve('template/login.html'))
