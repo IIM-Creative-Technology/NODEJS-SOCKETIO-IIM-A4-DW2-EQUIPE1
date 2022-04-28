@@ -32,14 +32,14 @@
 <script>
     const socket = io();
     const form = document.querySelector('form');
-    const messages = document.getElementsByClassName('inbox_messages')[0]
-    const message = document.getElementsByClassName('message_form_input')[0];
+    const messages = document.getElementsByClassName('inbox_messages')
+    const message = document.getElementsByClassName('message_form_input');
 
     socket.on('connect', () => {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            if (message.value) {
-                socket.emit('chat message', message.value);
+            if (message[0].value) {
+                socket.emit('chat message', message[0].value);
                 message.value = '';
             }
         });
@@ -48,7 +48,7 @@
             console.log(`chat message : ${msg}`);
             let item = document.createElement('li');
             item.textContent = msg;
-            messages.appendChild(item);
+            messages[0].appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
         });
      socket.on('quit', (id) => {
