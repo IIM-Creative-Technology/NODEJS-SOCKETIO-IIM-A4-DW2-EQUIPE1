@@ -6,7 +6,7 @@ class AuthenticationMiddleware{
     authentication = (req, res, next) => {
         try {
             const token = req.cookies.token;
-            if (!token) return res.status(403).send("Access denied.");
+            if (!token) return res.redirect('/api/users/login');
     
             const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
             req.user = decoded;

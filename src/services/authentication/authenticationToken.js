@@ -23,7 +23,6 @@ class AuthenticationService {
 		// here, the max age is in milliseconds, so we multiply by 1000
 		res.cookie("token", token, { maxAge: this.#jwtExpirySeconds * 1000 });
 		res.cookie("refreshToken", refreshToken, { maxAge: this.#refreshTokenExpirySeconds * 1000 });
-		res.end();
 	}
 
 	refreshJwtToken = (req, res) => {
@@ -31,7 +30,7 @@ class AuthenticationService {
 		const refreshToken = req.cookies.refreshToken;
 
 		if (!refreshToken) {
-			return res.status(401).end();
+			res.redirect('/api/users/login');
 			// TODO Send back to login
 		}
 
@@ -41,9 +40,9 @@ class AuthenticationService {
 			createJwtToken(res, payload.username);
 		} catch (e) {
 			if (e instanceof jwt.JsonWebTokenError) {
-				return res.status(401).end();
+				res.redirect('/api/users/login');
 			}
-			return res.status(400).end();
+			res.redirect('/api/users/login');
 		}
 	}
 
