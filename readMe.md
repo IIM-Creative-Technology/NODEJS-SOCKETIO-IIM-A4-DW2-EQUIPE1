@@ -1,8 +1,8 @@
 # NODEJS-SOCKETIO-IIM-A4-DW2-EQUIPE1
 
-## Lien du projet
+## Project Link
 
-https://iim-node-equipe1.herokuapp.com/
+The project has been deployed on every push upon master and is accessible on the following url : https://iim-node-equipe1.herokuapp.com/
 
 ## Required
 - docker (https://www.docker.com/get-started/)
@@ -14,8 +14,20 @@ https://iim-node-equipe1.herokuapp.com/
 - Fill the information with your pg account and pg database
 - In terminal, type command - docker-compose up --build
 
-# Rules
-## Branches Rules
+## ORM
+
+We used the Sequelise ORM to create our Model for this project.
+
+## Tests
+
+Jest has been used to setup our tests.
+To launch the tests , use the following command : 
+```bash
+npm test
+```
+
+## Rules
+### Branches Rules
 
 Add one of the following title to your branche :
 
@@ -32,7 +44,7 @@ Example :
 feature/edit-readMe
 ```
 
-## Commits and PR Rules
+### Commits and PR Rules
 
 Add between [] the main theme, then a little description.
 Example: 
