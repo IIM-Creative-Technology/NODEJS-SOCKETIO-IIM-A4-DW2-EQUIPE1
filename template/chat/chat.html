@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket.io simple chat</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+<div class="container">
+    <div class="inbox">
+        <div class="inbox_people">
+            <h4>Active users</h4>
+        </div>
+        <nav>
+            <ul class="inbox_messages">
+
+            </ul>
+        </nav>
+    </div>
+
+    <form class="message_form">
+        <input type="text" class="message_form_input" placeholder="Type a message" />
+        <button class="message_form_button" type="submit">
+            Enter
+        </button>
+    </form>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+</body>
+<script>
+    const socket = io();
+    const form = document.querySelector('form');
+    const messages = document.getElementsByClassName('inbox_messages')
+    const message = document.getElementsByClassName('message_form_input');
+
+    socket.on('connect', () => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (message[0].value) {
+                socket.emit('chat message', message[0].value);
+                message.value = '';
+            }
+        });
+
+        socket.on('chat message', function(msg) {
+            console.log(`chat message : ${msg}`);
+            let item = document.createElement('li');
+            item.textContent = msg;
+            messages[0].appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+     socket.on('quit', (id) => {
+            console.log(`${id}Connection disconnect`)
+        })
+    })
+</script>
+</html>
