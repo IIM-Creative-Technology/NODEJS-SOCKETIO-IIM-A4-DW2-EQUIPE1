@@ -5,7 +5,7 @@ class AuthenticationService {
 	#jwtExpirySeconds = 300;
 	#refreshTokenExpirySeconds = 600;
 
-	createJwtToken(res, username) {
+	createJwtToken = (res, username) => {
 		// Create a new token with the username in the payload
 		// and which expires 300 seconds after issue
 		const token = jwt.sign({ username }, this.#jwtKey, {
@@ -22,28 +22,27 @@ class AuthenticationService {
 		// set the cookie as the token string, with a similar max age as the token
 		// here, the max age is in milliseconds, so we multiply by 1000
 		res.cookie("token", token, { maxAge: this.#jwtExpirySeconds * 1000 });
-		res.cookie("refreshToken", refreshToken, { maxAge: this.#efreshTokenExpirySeconds * 1000 });
-		res.end();
+		res.cookie("refreshToken", refreshToken, { maxAge: this.#refreshTokenExpirySeconds * 1000 });
 	}
 
-	refreshJwtToken(req, res) {
+	refreshJwtToken = (req, res) => {
 		// Get token by cookie
 		const refreshToken = req.cookies.refreshToken;
 
 		if (!refreshToken) {
-			return res.status(401).end();
+			res.redirect('/api/users/login');
 			// TODO Send back to login
 		}
 
 		var payload
 		try {
 			payload = jwt.verify(refreshToken, this.#jwtKey);
-			createJwtToken(payload.username);
+			createJwtToken(res, payload.username);
 		} catch (e) {
 			if (e instanceof jwt.JsonWebTokenError) {
-				return res.status(401).end();
+				res.redirect('/api/users/login');
 			}
-			return res.status(400).end();
+			res.redirect('/api/users/login');
 		}
 	}
 
