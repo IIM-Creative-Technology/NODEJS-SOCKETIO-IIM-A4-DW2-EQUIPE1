@@ -9,18 +9,27 @@ const docRouter = express.Router();
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const userModel = require('./src/data/userModel');
+const path = require('path');
+var bodyParser = require('body-parser');
+const auth  = require('./src/middleware/authentication');
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded())
+
+// parse application/json
+app.use(bodyParser.json())
 
 app.get("/api/ping", async (req, res) => {
   const users = await userModel.findAll();
   res.send(users);
 });
-app.get("/", (req, res)=>{
-res.sendFile(__dirname + '/template/index.html')
-})
+app.get("/", new auth().authentication, (req, res) => {
+  res.sendFile(__dirname + '/template/index.html')
+});
+
 docRouter.use("/swagger", swaggerUi.serve);
 docRouter.get("/swagger", swaggerUi.setup(swaggerDocument));
 
