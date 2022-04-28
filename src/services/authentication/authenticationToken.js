@@ -24,19 +24,18 @@ class AuthenticationService {
 		res.cookie("refreshToken", refreshToken, { maxAge: this.#refreshTokenExpirySeconds * 1000 });
 	}
 
-	refreshJwtToken = (req, res) => {
+	refreshJwtToken = async (req, res) => {
 		// Get token by cookie
 		const refreshToken = req.cookies.refreshToken;
 
 		if (!refreshToken) {
 			res.redirect('/api/users/login');
-			// TODO Send back to login
 		}
 
 		var payload
 		try {
 			payload = jwt.verify(refreshToken, this.#jwtKey);
-			createJwtToken(res, payload.username);
+			await createJwtToken(res, payload.username);
 		} catch (e) {
 			if (e instanceof jwt.JsonWebTokenError) {
 				res.redirect('/api/users/login');

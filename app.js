@@ -25,24 +25,26 @@ app.use(cors());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded())
 
-app.get("/api/ping", (req, res) => {
-  res.send("API is up and running!");
-});
 // Index
 app.get("/", new auth().authentication, (req, res)=>{
   res.sendFile(__dirname + '/template/index.html')
 });
+
 // Chat page
 app.get("/chat", (req, res) => {
   res.sendFile(__dirname + "/template/chat/chat.html")
 });
+
+// DOC
 docRouter.use("/swagger", swaggerUi.serve);
 docRouter.get("/swagger", swaggerUi.setup(swaggerDocument));
-//Api
-
-app.use("/api/users", userRouter);
 app.use("/docs", docRouter);
 
+// API
+app.use("/api/users", userRouter);
+app.use("/api/ping", pingRouter);
+
+//STORAGE
 
 const storage = multer.diskStorage({
   destination: './public/uploads/',
@@ -78,20 +80,18 @@ app.post('/upload', async (req, res) => {
   res.send(200);
 });
 
+//SOCKET IO
 io.on('connection', (socket) => {
   socket.on('chat message', (message) => {
     io.emit('chat message', message);
   });
-  // socket.on('login', (userInfo) => {
-  //   userList.push(userInfo);
-  //   io.emit('userList', userList);
-  // })
-  // Exit (built-in event)
   socket.on('disconnect', () => {
     userList = userList.filter(item => item.id != socket.id)
     io.emit('quit', socket.id)
   })
 })
+
+//START SERVER
 
 http.listen(port, async () => {
   try {
