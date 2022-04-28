@@ -4,6 +4,7 @@ const auth  = require('../middleware/authentication');
 const router = express.Router();
 const {
   getMe,
+  getAllUsers,
   registerUser,
   loginUser,
   updateUser,
@@ -13,6 +14,7 @@ const {
  * User Routes
  */
 router.get("/me", new auth().authentication, getMe);
+router.get("/all", getAllUsers);
 router.post("/register", registerUser);
 router.get('/register', (req, res) => {
   res.sendFile(path.resolve('template/register.html'))

@@ -3,7 +3,16 @@ const jwtToken = require("../services/authentication/authenticationToken");
 const bcrypt = require('bcryptjs');
 // User Controller
 /**
- * Get all Users
+ * Get all users
+ * @param req
+ * @param res
+ */
+exports.getAllUsers = async function (req, res) {
+    const userList = await userModel.findAll({attributes: {exclude: ["password"]}});
+    res.json(userList);
+}
+/**
+ * Get current User
  * @param req
  * @param res
  */
@@ -16,7 +25,6 @@ exports.getMe = function (req, res) {
  * @param res
  */
 exports.registerUser = async function (req, res) {
-    console.log(req.body);
     try {
         req.body.password = bcrypt.hashSync(req.body.password, 10);
         const user = await userModel.create(req.body);
@@ -32,7 +40,6 @@ exports.registerUser = async function (req, res) {
  * @param res
  */
 exports.loginUser = async function (req, res) {
-    console.log(req.body);
     try {
         const user = await userModel.findOne({ where: { email: req.body.email } });
         if (user != null) {

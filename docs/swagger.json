@@ -40,6 +40,20 @@
         "responses": {}
       }
     },
+    "/api/users/all": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/api/users/me": {
       "get": {
         "description": "",
