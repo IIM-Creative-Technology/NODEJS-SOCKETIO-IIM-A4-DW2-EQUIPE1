@@ -21,7 +21,7 @@ exports.registerUser = async function (req, res) {
         req.body.password = bcrypt.hashSync(req.body.password, 10);
         const user = await userModel.create(req.body);
         new jwtToken().createJwtToken(res, user.email);
-        res.status(200)
+        res.redirect('/api/users/me');
     } catch (e) {
         res.send(e);
     }
@@ -32,13 +32,14 @@ exports.registerUser = async function (req, res) {
  * @param res
  */
 exports.loginUser = async function (req, res) {
+    console.log(req.body);
     try {
         const user = await userModel.findOne({ where: { email: req.body.email } });
         if (user != null) {
             const isGood = bcrypt.compareSync(req.body.password, user.password);
             if (isGood) {
                 new jwtToken().createJwtToken(res, user.email);
-                res.status(200);
+                res.redirect('/api/users/me');
             } else {
                 res.status(403);
             }
